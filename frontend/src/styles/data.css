@@ -1,0 +1,5 @@
+.data-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; padding: 3rem 1rem; color: var(--color-muted); text-align: center; }
+.data-error { color: var(--color-danger); }
+.doctor-photo { object-fit: cover; }
+main:focus { outline: none; }
+.page-loading { min-height: 70vh; display: grid; place-items: center; }

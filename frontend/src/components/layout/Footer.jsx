@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { clinic, services } from "../../data/clinicData";
+import { clinic } from "../../data/clinicData";
+import useFetch from "../../hooks/useFetch";
+import { getServices } from "../../services/servicesService";
 
 export default function Footer() {
+  const { data: services } = useFetch(getServices);
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -34,8 +38,8 @@ export default function Footer() {
           <div className="col-6 col-lg-3">
             <h3 className="footer-title">Services</h3>
             <ul className="footer-list">
-              {services.slice(0, 5).map((s) => (
-                <li key={s.title}><Link to="/services">{s.title}</Link></li>
+              {(services || []).slice(0, 5).map((s) => (
+                <li key={s.id}><Link to="/services">{s.title}</Link></li>
               ))}
             </ul>
           </div>

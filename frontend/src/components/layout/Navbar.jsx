@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { LogOut, Menu, X, Phone } from "lucide-react";
 import { clinic } from "../../data/clinicData";
+import useAuth from "../../hooks/useAuth";
 
 const links = [
   { to: "/", label: "Home" },
@@ -16,6 +17,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -27,6 +30,15 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
+
+  const accountLinks = user
+    ? [user.is_staff ? { to: "/dashboard", label: "Dashboard" } : { to: "/my-appointments", label: "My bookings" }]
+    : [{ to: "/login", label: "Login" }];
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   return (
     <header className={`site-nav ${scrolled || open ? "scrolled" : ""}`}>
@@ -47,7 +59,7 @@ export default function Navbar() {
 
         <nav className={`nav-menu ${open ? "open" : ""}`} aria-label="Main navigation">
           <ul className="nav-links">
-            {links.map((l) => (
+            {[...links, ...accountLinks].map((l) => (
               <li key={l.to}>
                 <NavLink to={l.to} end={l.to === "/"} className="nav-link-item">
                   {l.label}
@@ -55,6 +67,11 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          {user && (
+            <button type="button" className="nav-logout" onClick={handleLogout}>
+              <LogOut size={16} /> Logout
+            </button>
+          )}
           <a href={`tel:${clinic.phoneLink}`} className="nav-phone">
             <Phone size={16} /> {clinic.phone}
           </a>

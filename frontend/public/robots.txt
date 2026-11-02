@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /my-appointments
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://location = /sitemap.xml
