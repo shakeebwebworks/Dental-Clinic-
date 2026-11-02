@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+:root {
+  --color-navy: #0a2540;
+  --color-navy-700: #123a66;
+  --color-blue: #2f80ed;
+  --color-light-blue: #e8f3fc;
+  --color-sky: #bfe0f8;
+  --color-white: #ffffff;
+  --color-text: #1f2d3d;
+  --color-muted: #5b6b7c;
+  --color-success: #1e9e6a;
+  --color-danger: #d64545;
+
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
+
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-soft: 0 10px 30px rgba(10, 37, 64, 0.08);
+  --shadow-hover: 0 16px 40px rgba(10, 37, 64, 0.14);
+  --transition: all 0.3s ease;
+}
