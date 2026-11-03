@@ -56,6 +56,9 @@ export default function Footer() {
 
         <div className="footer-bottom">
           © {new Date().getFullYear()} {clinic.name}. All rights reserved.
+          <span className="footer-legal">
+            <Link to="/privacy">Privacy Policy</Link> · <Link to="/terms">Terms of Use</Link>
+          </span>
         </div>
       </div>
     </footer>

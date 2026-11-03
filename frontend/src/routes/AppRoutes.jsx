@@ -15,6 +15,8 @@ const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const MyAppointments = lazy(() => import("../pages/MyAppointments"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Privacy = lazy(() => import("../pages/Privacy"));
+const Terms = lazy(() => import("../pages/Terms"));
 const ComingSoon = lazy(() => import("../pages/ComingSoon"));
 
 export default function AppRoutes() {
@@ -32,6 +34,8 @@ export default function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/my-appointments" element={<ProtectedRoute><MyAppointments /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute staffOnly><Dashboard /></ProtectedRoute>} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<ComingSoon title="Page not found" />} />
       </Route>
     </Routes>

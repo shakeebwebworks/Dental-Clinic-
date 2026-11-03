@@ -2,12 +2,13 @@ import { useState } from "react";
 import { AlertCircle, CheckCircle2, Clock, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import PageHeader from "../components/ui/PageHeader";
 import Field from "../components/forms/Field";
+import ConsentCheckbox from "../components/forms/ConsentCheckbox";
 import { clinic } from "../data/clinicData";
 import { createEnquiry } from "../services/contactService";
 import { parseApiError } from "../utils/apiErrors";
 import { isEmail, isPhone } from "../utils/validators";
 
-const emptyForm = { name: "", email: "", phone: "", subject: "", message: "" };
+const emptyForm = { name: "", email: "", phone: "", subject: "", message: "", consent: false };
 
 function validate(f) {
   const e = {};
@@ -18,6 +19,7 @@ function validate(f) {
   if (f.subject.trim().length < 3) e.subject = "Please add a short subject.";
   if (f.message.trim().length < 10) e.message = "Message must be at least 10 characters.";
   else if (f.message.length > 1000) e.message = "Message must be 1000 characters or fewer.";
+  if (!f.consent) e.consent = "Please agree to the Privacy Policy to continue.";
   return e;
 }
 
@@ -29,8 +31,8 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
@@ -130,6 +132,7 @@ export default function Contact() {
                     </Field>
                   </div>
                 </div>
+                <ConsentCheckbox checked={form.consent} onChange={onChange} error={errors.consent} />
                 <button type="submit" className="btn btn-brand btn-lg align-self-start" disabled={loading}>
                   {loading ? (<><Loader2 size={20} className="spin me-2" /> Sending...</>) : (<><Send size={20} className="me-2" /> Send Message</>)}
                 </button>

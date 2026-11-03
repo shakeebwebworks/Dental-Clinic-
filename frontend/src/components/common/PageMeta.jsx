@@ -27,6 +27,14 @@ const pages = {
     title: "Contact Us",
     description: "Find our address, phone number, opening hours and map, or send us a message.",
   },
+  "/privacy": {
+    title: "Privacy Policy",
+    description: "How we collect, use and protect your personal information.",
+  },
+  "/terms": {
+    title: "Terms of Use",
+    description: "The terms for using our website and booking appointments.",
+  },
   "/appointment": {
     title: "Book an Appointment",
     description: "Book your dental appointment online. Choose your treatment, dentist, date and a free time slot.",

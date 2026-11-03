@@ -45,3 +45,11 @@
 /* ===== Testimonials page ===== */
 .rating-summary { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-bottom: 3rem; }
 .rating-number { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; color: var(--color-navy); line-height: 1; }
+
+.legal-content { max-width: 800px; }
+.legal-content h2 { font-size: 1.35rem; margin: 2rem 0 .75rem; }
+.legal-content p, .legal-content li { color: var(--color-muted); line-height: 1.7; }
+.footer-legal { display: block; margin-top: .6rem; }
+.footer-legal a { color: #b6c6d8; text-decoration: none; }
+.footer-legal a:hover { color: #fff; }
+.form-check-input { margin-top: .25rem; }

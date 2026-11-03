@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { AlertCircle, CalendarCheck, CheckCircle2, Clock, Loader2, Phone } from "lucide-react";
 import PageHeader from "../components/ui/PageHeader";
 import Field from "../components/forms/Field";
+import ConsentCheckbox from "../components/forms/ConsentCheckbox";
 import DataState from "../components/common/DataState";
 import useFetch from "../hooks/useFetch";
 import { clinic } from "../data/clinicData";
@@ -12,7 +13,7 @@ import { createAppointment, getAvailability } from "../services/appointmentsServ
 import { parseApiError } from "../utils/apiErrors";
 import { isEmail, isPhone, isSunday, todayISO } from "../utils/validators";
 
-const emptyForm = { name: "", email: "", phone: "", service: "", doctor: "any", date: "", time: "", message: "" };
+const emptyForm = { name: "", email: "", phone: "", service: "", doctor: "any", date: "", time: "", message: "", consent: false };
 
 const loadLists = async () => {
   const [services, doctors] = await Promise.all([getServices(), getDoctors()]);
@@ -32,6 +33,7 @@ function validate(f) {
   else if (isSunday(f.date)) e.date = "The clinic is closed on Sundays. Please pick another day.";
   if (!f.time) e.time = "Please choose a time.";
   if (f.message.length > 500) e.message = "Message must be 500 characters or fewer.";
+  if (!f.consent) e.consent = "Please agree to the Privacy Policy to continue.";
   return e;
 }
 
@@ -82,8 +84,8 @@ export default function Appointment() {
   }, [form.date, form.doctor, slotsKey]);
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
@@ -259,6 +261,7 @@ export default function Appointment() {
                       </Field>
                     </div>
                   </div>
+                  <ConsentCheckbox checked={form.consent} onChange={onChange} error={errors.consent} />
                   <button type="submit" className="btn btn-brand btn-lg align-self-start" disabled={loading}>
                     {loading ? (<><Loader2 size={20} className="spin me-2" /> Submitting...</>) : (<><CalendarCheck size={20} className="me-2" /> Confirm Appointment</>)}
                   </button>
